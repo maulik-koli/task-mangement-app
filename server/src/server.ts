@@ -1,8 +1,10 @@
 import App from "./app";
+import { disconnectPrisma } from "./configs/prisma";
 import { Log } from "./utils/log";
 
 const serverShutdown = async (signal: string) => {
     Log.info(`${signal} received. Shutting down gracefully...`);
+    await disconnectPrisma();
     process.exit(0);
 };
 

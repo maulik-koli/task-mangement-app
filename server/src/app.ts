@@ -1,8 +1,12 @@
 import express, { Application } from 'express'
+import cookieParser from "cookie-parser";
+
 import appRoutes from './appRouter';
-import { AppError } from './utils/response';
-import { globalErrorHandler } from './middlewares/error.middleware';
 import { env } from './configs/env';
+import { connectPrisma } from './configs/prisma';
+import { globalErrorHandler } from './middlewares/error.middleware';
+
+import { AppError } from './utils/response';
 import { Log } from './utils/log';
 
 
@@ -19,6 +23,7 @@ class App {
 
     private setUpMiddleware(): void {
         this.app.use(express.json());
+        this.app.use(cookieParser());
     }
 
     private setUpRoutes(): void {
@@ -40,8 +45,13 @@ class App {
         });
     }
 
+    private async initializeDatabase(): Promise<void> {
+        await connectPrisma();
+    }
+
     private async start(): Promise<void> {
         try {
+            await this.initializeDatabase();
             await this.initializeApp();
         }
         catch (error) {
