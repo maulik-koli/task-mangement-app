@@ -1,9 +1,12 @@
 'use client'
 import React from "react"
 import Link from "next/link"
+import { useRouter } from "next/navigation"
 import { Controller, useForm } from "react-hook-form"
 import { zodResolver } from "@hookform/resolvers/zod"
 import { defaultSignupValue, SignupFormType, signupSchema } from "@/schemas/auth-schema"
+import { useSignup } from "@/api/auth/hooks"
+import { useToast } from "@/hooks/use-toast"
 
 import { Button } from "@/components/ui/button"
 import { Field, FieldDescription, FieldGroup } from "@/components/ui/field"
@@ -16,11 +19,22 @@ const SignupForm: React.FC = () => {
     resolver: zodResolver(signupSchema)
   })
   const { control, handleSubmit } = form
-  
+
+  const { mutate, isPending } = useSignup()
+  const router = useRouter()
+  const toast = useToast()
+
   const submit = (data: SignupFormType) => {
-    console.log(data)
+    mutate(data, {
+      onSuccess(data) {
+        router.replace("/")
+        toast.success(data.message)
+      },
+    })
   }
-  
+
+  toast.isLoading(isPending, "Loading...")
+
 
   return (
     <form onSubmit={handleSubmit(submit)}>
