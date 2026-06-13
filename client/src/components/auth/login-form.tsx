@@ -1,13 +1,17 @@
 'use client'
 import React from "react"
 import Link from "next/link"
+import { useRouter } from "next/navigation"
 import { Controller, useForm } from "react-hook-form"
 import { zodResolver } from "@hookform/resolvers/zod"
 import { defaultLoginValue, LoginFormType, loginSchema } from "@/schemas/auth-schema"
+import { useLogin } from "@/api/auth/hooks"
+import { useToast } from "@/hooks/use-toast"
 
 import { Button } from "@/components/ui/button"
 import { Field, FieldDescription, FieldGroup } from "@/components/ui/field"
 import { Input } from "@/components/ui/input"
+import { Log } from "@/lib/utils"
 
 
 const LoginForm: React.FC = () => {
@@ -17,9 +21,21 @@ const LoginForm: React.FC = () => {
   })
   const { control, handleSubmit } = form
 
+  const { mutate, isPending } = useLogin()
+  const router = useRouter()
+  const toast = useToast()
+
   const submit = (data: LoginFormType) => {
-    console.log(data)
+    mutate(data, {
+      onSuccess(data) {
+        Log('okay', 1)
+        toast.success(data.message)
+        router.push("/")
+      },
+    })
   }
+
+  toast.isLoading(isPending, "Loading...")
 
 
   return (
