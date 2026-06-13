@@ -7,7 +7,7 @@ import { Log } from '@/utils/log';
 export const validateBody = (schema: ZodType<any>) => {
     return (req: Request, res: Response, next: NextFunction) => {
         try {
-            schema.parse(req.body);
+            req.body = schema.parse(req.body);
             next();
         } 
         catch (error) {

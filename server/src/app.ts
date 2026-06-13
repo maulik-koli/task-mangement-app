@@ -1,5 +1,10 @@
 import express, { Application } from 'express'
 import cookieParser from "cookie-parser";
+import cors from "cors";
+import morgan from "morgan";
+import helmet from "helmet";
+import hpp from "hpp";
+
 
 import appRoutes from './appRouter';
 import { env } from './configs/env';
@@ -22,8 +27,25 @@ class App {
     }
 
     private setUpMiddleware(): void {
+        this.app.use(cors({
+            origin: function (origin, callback) {
+                if (!origin) return callback(null, true);
+                
+                if (origin === env.CLIENT_DOMAIN_URL) {
+                    callback(null, true);
+                } else {
+                    Log.error('Blocked origin:', origin);
+                    callback(new Error('Not allowed by CORS'));
+                }
+            },
+            credentials: true
+        }));
+
         this.app.use(express.json());
         this.app.use(cookieParser());
+        this.app.use(morgan('dev'));
+        this.app.use(helmet());
+        this.app.use(hpp());
     }
 
     private setUpRoutes(): void {
