@@ -13,6 +13,8 @@ model User {
   password String
   name     String?
   tasks    Task[]
+
+  @@index([email])
 }
 
 model Task {
@@ -21,8 +23,17 @@ model Task {
   description String?
   status      TaskStatus   @default(PENDING)
   priority    TaskPriority @default(LOW)
+  dueDate     DateTime?
+  createdAt   DateTime     @default(now())
+  updatedAt   DateTime     @updatedAt
   userId      String
   user        User         @relation(fields: [userId], references: [id])
+
+  @@index([userId])
+  @@index([userId, status])
+  @@index([userId, priority])
+  @@index([userId, createdAt])
+  @@index([userId, dueDate])
 }
 
 enum TaskStatus {

@@ -13,9 +13,21 @@ export const loginSchema = z.object({
 });
 
 export const signupSchema = z.object({
-    name: z.string().min(2, "Name must be at least 2 characters").optional(),
+    name: z.string()
+        .min(2, "Name must be at least 2 characters")
+        .max(30, "Name must not be more than 30 characters")
+        .optional(),
     email: z.email("Invalid email address"),
     password: passwordSchema,
+    confirmPassword: passwordSchema
+}).superRefine((data, ctx) => {
+    if (data.confirmPassword !== data.password) {
+        ctx.addIssue({
+            path: ["confirmPassword"],
+            code: "custom",
+            message: "Confirm password and password must be same",
+        });
+    }
 });
 
 export type LoginPayload = z.infer<typeof loginSchema>;

@@ -55,6 +55,16 @@ class AuthService {
         return { accessToken };
     }
 
+    public async getUser(userId: string) {
+        const user = await authRepository.findById(userId);
+
+        if (!user) {
+            throw new AppError(404, "RESOURCE_NOT_FOUND", "User not found");
+        }
+
+        return user;
+    }
+
 
     private generateTokens(userId: string) {
         const accessToken = generateJwtToken({

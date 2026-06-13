@@ -12,6 +12,7 @@ const envSchema = z.object({
     JWT_REFRESH_SECRET: z.string().min(16, "JWT_REFRESH_SECRET is required"),
     JWT_ACCESS_SECRET: z.string().min(32, "JWT_ACCESS_SECRET is required"),
 
+    CLIENT_DOMAIN_URL: z.string().min(1, "CLIENT_DOMAIN_URL is required"),
     DOMAIN: z.string().min(1, "DOMAIN is required"),
 });
 
