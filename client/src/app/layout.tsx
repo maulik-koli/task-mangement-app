@@ -1,11 +1,14 @@
 import type { Metadata } from "next";
 import { Inter, JetBrains_Mono } from "next/font/google";
+import { Analytics } from "@vercel/analytics/next"
+
 import "@/styles/globals.css";
 import { cn } from "@/lib/utils";
-import AppProvider from "@/provider";
-import { Toaster } from "sonner";
 import { DOMAIN_URL } from "@/constants/seo";
-import JsonLd from "@/components/seo/json-ld";
+
+import AppProvider from "@/provider";
+import JsonLd from "@/components/common/json-ld";
+import { Toaster } from "@/components/ui/sonner";
 
 const fontSans = Inter({
   variable: "--font-sans",
@@ -55,6 +58,7 @@ export default function RootLayout({
     <html lang="en" suppressHydrationWarning>
       <head>
         <JsonLd />
+        <Analytics />
       </head>
       <body className={cn("min-h-full flex flex-col font-sans", fontSans.variable, fontMono.variable)}>
         <main className="w-full h-full">

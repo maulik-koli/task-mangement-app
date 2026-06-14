@@ -62,7 +62,7 @@ const TaskCard: React.FC<TaskCardProps> = ({ task }) => {
         </div>
 
         <div className="flex items-center gap-0.5">
-          <MarkUpdateButton taskId={task.id} />
+          <MarkUpdateButton taskId={task.id} status={task.status} />
           <CustomDialog
             open={openForm}
             onOpenChange={(op) => setOpenForm(op)}
