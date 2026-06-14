@@ -1,17 +1,17 @@
 import type { Metadata } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
+import { Inter, JetBrains_Mono } from "next/font/google";
 import "@/styles/globals.css";
 import { cn } from "@/lib/utils";
 import AppProvider from "@/provider";
 import { Toaster } from "sonner";
 
-const geistSans = Geist({
-  variable: "--font-geist-sans",
+const fontSans = Inter({
+  variable: "--font-sans",
   subsets: ["latin"],
 });
 
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
+const fontMono = JetBrains_Mono({
+  variable: "--font-mono",
   subsets: ["latin"],
 });
 
@@ -27,7 +27,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" suppressHydrationWarning>
-      <body className={cn("min-h-full flex flex-col", geistSans.variable, geistMono.variable)}>
+      <body className={cn("min-h-full flex flex-col font-sans", fontSans.variable, fontMono.variable)}>
         <main className="w-full h-full">
           <AppProvider>
             {children}

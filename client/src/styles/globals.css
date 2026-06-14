@@ -8,7 +8,7 @@
   --color-background: var(--background, #FFFFFF);
   --color-foreground: var(--foreground, #0F172A);
   --font-sans: var(--font-sans);
-  --font-mono: var(--font-geist-mono);
+  --font-mono: var(--font-mono);
   --font-heading: var(--font-sans);
   --color-sidebar-ring: var(--sidebar-ring, #3B82F6);
   --color-sidebar-border: var(--sidebar-border, #E2E8F0);
@@ -120,10 +120,25 @@
   * {
     @apply border-border outline-ring/50;
   }
+
   body {
     @apply bg-background text-foreground;
+    scrollbar-width: none;
+    -ms-overflow-style: none;
   }
+
+  body::-webkit-scrollbar {
+    width: 0;
+    height: 0;
+  }
+
   html {
-    @apply font-sans;
+    scrollbar-gutter: stable;
+  }
+
+  body[data-scroll-locked] {
+    overflow: auto !important;
+    margin-right: 0 !important;
+    padding-right: 0 !important;
   }
 }

@@ -1,59 +1,66 @@
 "use client";
+import React, { useState } from "react";
+import { TaskListQuery } from "@/api/tasks/type";
+import { TASK_STATUS_OPTOIN, TASK_PRIORITY_OPTION, TASK_SORT_OPTION } from "@/constants/select-options";
 
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "@/components/ui/select";
-import CreateTaskDialog from "./create-task-dialog";
+import CustomDialog from "../composites/custom-dialog";
+import CreateTaskForm from "./create-task-form";
+import SelectField from "../composites/select-field";
+import { Button } from "@/components/ui/button";
+import { Plus } from "lucide-react";
 
-export default function TaskFilters() {
+
+interface TaskFiltersProps {
+  filters: TaskListQuery;
+  applyFilter: (key: keyof TaskListQuery | 'sort', value: string | number) => void;
+}
+
+const TaskFilters: React.FC<TaskFiltersProps> = ({ filters, applyFilter }) => {
+  const [openForm, setOpenForm] = useState(false)
+
   return (
     <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
       <div className="flex flex-wrap items-center gap-2">
-        {/* Status Filter */}
-        <Select defaultValue="all">
-          <SelectTrigger className="h-9 w-[130px]">
-            <SelectValue placeholder="Status" />
-          </SelectTrigger>
-          <SelectContent>
-            <SelectItem value="all">All Status</SelectItem>
-            <SelectItem value="pending">Pending</SelectItem>
-            <SelectItem value="in_progress">In Progress</SelectItem>
-            <SelectItem value="completed">Completed</SelectItem>
-          </SelectContent>
-        </Select>
+        <SelectField
+          label="Task Status"
+          value={filters.status || TASK_STATUS_OPTOIN[0].value}
+          onChange={(val) => applyFilter('status', val)}
+          options={TASK_STATUS_OPTOIN}
+          selectTriggerClass="min-w-35"
+        />
 
-        {/* Priority Filter */}
-        <Select defaultValue="all">
-          <SelectTrigger className="h-9 w-[130px]">
-            <SelectValue placeholder="Priority" />
-          </SelectTrigger>
-          <SelectContent>
-            <SelectItem value="all">All Priority</SelectItem>
-            <SelectItem value="low">Low</SelectItem>
-            <SelectItem value="medium">Medium</SelectItem>
-            <SelectItem value="high">High</SelectItem>
-          </SelectContent>
-        </Select>
+        <SelectField
+          label="Priority"
+          value={filters.priority || TASK_PRIORITY_OPTION[0].value}
+          onChange={(val) => applyFilter('priority', val)}
+          options={TASK_PRIORITY_OPTION}
+          selectTriggerClass="min-w-35"
+        />
 
-        {/* Sort Dropdown */}
-        <Select defaultValue="due_date">
-          <SelectTrigger className="h-9 w-[140px]">
-            <SelectValue placeholder="Sort by" />
-          </SelectTrigger>
-          <SelectContent>
-            <SelectItem value="due_date">Due Date</SelectItem>
-            <SelectItem value="priority">Priority</SelectItem>
-            <SelectItem value="created_date">Created Date</SelectItem>
-          </SelectContent>
-        </Select>
+        <SelectField
+          label="Sort by"
+          value={filters.sortBy ? `${filters.sortBy === 'CREATED_AT' ? 'CREATED_DATE' : filters.sortBy}_${filters.sortOrder?.toUpperCase()}` : TASK_SORT_OPTION[0].value}
+          onChange={(val) => applyFilter('sort', val)}
+          options={TASK_SORT_OPTION}
+          selectTriggerClass="min-w-60"
+        />
       </div>
 
-      {/* Create Task Dialog */}
-      <CreateTaskDialog />
+      <CustomDialog
+        open={openForm}
+        onOpenChange={(op) => setOpenForm(op)}
+        triggerNode={
+          <Button>
+            <Plus className="mr-2 size-4" /> Create Task
+          </Button>
+        }
+        title="Create New Task"
+        description="Fill in the details below to create a new task."
+      >
+        <CreateTaskForm onClose={() => setOpenForm(false)} />
+      </CustomDialog>
     </div>
   );
 }
+
+export default TaskFilters

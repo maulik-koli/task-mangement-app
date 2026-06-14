@@ -41,7 +41,8 @@ class TaskService {
             throw new AppError(404, "RESOURCE_NOT_FOUND", "Task not found");
         }
 
-        return task;
+        const { userId: userIdFromTask , ...restTask } = task;
+        return restTask;
     }
 
     public async updateTask(userId: string, id: string, payload: UpdateTaskPayload) {

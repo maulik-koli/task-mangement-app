@@ -5,7 +5,6 @@ import morgan from "morgan";
 import helmet from "helmet";
 import hpp from "hpp";
 
-
 import appRoutes from './appRouter';
 import { env } from './configs/env';
 import { connectPrisma } from './configs/prisma';
