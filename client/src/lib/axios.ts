@@ -2,7 +2,6 @@
 import axios, { AxiosInstance, AxiosError, InternalAxiosRequestConfig } from "axios";
 import { ApiError } from "@/types/api";
 
-// add env file
 const SERVER_URL = process.env.NEXT_PUBLIC_SERVER_URL;
 
 const api: AxiosInstance = axios.create({
