@@ -1,0 +1,14 @@
+import { Search } from "lucide-react";
+
+export default function TaskSearch() {
+  return (
+    <div className="relative">
+      <Search className="absolute left-3 top-1/2 size-4 -translate-y-1/2 text-muted-foreground" />
+      <input
+        type="text"
+        placeholder="Search tasks..."
+        className="h-10 w-full rounded-lg border border-input bg-background pl-9 pr-4 text-sm transition-colors placeholder:text-muted-foreground focus-visible:border-ring focus-visible:outline-none focus-visible:ring-3 focus-visible:ring-ring/50 dark:bg-input/30"
+      />
+    </div>
+  );
+}

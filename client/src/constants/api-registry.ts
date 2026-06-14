@@ -7,5 +7,7 @@ export const MUTATION_REGISTRY = {
 
 
 export const QUERY_REGISTRY = {
-    
+    profile: "profile",
+
+    getTaskList: "task-list"
 } as const;
