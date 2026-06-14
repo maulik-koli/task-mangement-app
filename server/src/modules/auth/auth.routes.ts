@@ -4,6 +4,7 @@ import { loginSchema, signupSchema } from "./auth.schema";
 
 import { validateBody } from "@/middlewares/validate.middlewate";
 import { asyncWrapper } from "@/utils/asyncWrapper";
+import { authMiddleware } from "@/middlewares/auth.middleware";
 
 const authRouter = express.Router();
 
@@ -21,13 +22,19 @@ authRouter.post(
 
 authRouter.post(
     '/logout',
-    // will add procted route
+    authMiddleware,
     asyncWrapper(authController.logout)
 )
 
 authRouter.post(
     '/refresh',
     asyncWrapper(authController.refresh)
+)
+
+authRouter.get(
+    '/profile',
+    authMiddleware,
+    asyncWrapper(authController.getProfile)
 )
 
 export default authRouter

@@ -1,3 +1,5 @@
+import { CreateTaskFormType, UpdateTaskFormType } from "@/schemas/task-schema";
+
 export type TaskStatus = "PENDING" | "IN_PROGRESS" | "COMPLETED"
 export type TaskPriority = "LOW" | "MEDIUM" | "HIGH"
 
@@ -32,4 +34,18 @@ export type TaskListItem = {
 export type TaskListResponse = {
     tasks: TaskListItem[],
     pagination: PaginationType,
+}
+
+export type CreateTaskPayload = {
+    data: CreateTaskFormType,
+}
+
+export type UpdateTaskPayload = {
+    taskId: string,
+    data: UpdateTaskFormType,
+}
+
+export type TaskResponse = TaskListItem & {
+    createdAt: string
+    updatedAt: string
 }

@@ -48,17 +48,14 @@ function TaskCardSkeleton() {
 export function DashboardSkeleton() {
   return (
     <div className="space-y-6">
-      {/* Stats */}
       <div className="grid grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-4">
         {Array.from({ length: 4 }).map((_, i) => (
           <StatsCardSkeleton key={i} />
         ))}
       </div>
 
-      {/* Search */}
       <SearchSkeleton />
 
-      {/* Task Cards */}
       <div className="space-y-3">
         <Skeleton className="h-4 w-28" />
         <div className="grid grid-cols-1 gap-3 md:grid-cols-2">

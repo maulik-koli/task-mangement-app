@@ -1,7 +1,6 @@
 import { Request, Response } from "express";
 import { taskService } from "./task.service";
 import { CreateTaskPayload, TaskListQuery, UpdateTaskPayload } from "./task.schema";
-
 import { AppError, AppResponse } from "@/utils/response";
 
 const getTaskId = (req: Request) => {
@@ -20,12 +19,11 @@ class TaskController {
         const userId = req.user!.id;
         const payload = req.body as CreateTaskPayload;
 
-        const task = await taskService.createTask(userId, payload);
+        await taskService.createTask(userId, payload);
 
         AppResponse(res, 201, {
             code: "CREATED",
             message: "Task created successfully",
-            data: task,
         });
     }
 
@@ -58,12 +56,11 @@ class TaskController {
         const userId = req.user!.id;
         const payload = req.body as UpdateTaskPayload;
 
-        const task = await taskService.updateTask(userId, getTaskId(req), payload);
+        await taskService.updateTask(userId, getTaskId(req), payload);
 
         AppResponse(res, 200, {
             code: "OK",
             message: "Task updated successfully",
-            data: task,
         });
     }
 
@@ -77,7 +74,6 @@ class TaskController {
             message: "Task deleted successfully",
         });
     }
-
 }
 
 export const taskController = new TaskController();

@@ -32,7 +32,7 @@ const DashboardHeader: React.FC = () => {
     if (isLoading) {
       return (
         <div className="flex items-center gap-2">
-          <Skeleton className="size-7 rounded-full" />
+          <Skeleton className="size-8 rounded-full bg-primary/20" />
         </div>
       )
     }
@@ -55,7 +55,7 @@ const DashboardHeader: React.FC = () => {
             size="icon"
             className="rounded-full"
           >
-            <Avatar className="size-7">
+            <Avatar className="size-8">
               <AvatarFallback className="bg-primary/10 text-xs font-medium text-primary">
                 {data?.data?.name?.charAt(0).toUpperCase() || "U"}
               </AvatarFallback>
@@ -83,16 +83,18 @@ const DashboardHeader: React.FC = () => {
   }
 
   return (
-    <header className="sticky top-0 z-50 w-full border-b bg-background/80 backdrop-blur-sm">
-      <div className="mx-auto flex h-14 max-w-6xl items-center justify-between px-4 sm:px-6">
-        <span className="text-base font-semibold tracking-tight">
-          Task Management
-        </span>
+    <header className="sticky top-0 z-50 w-full border-b border-border/50 bg-background/80 backdrop-blur-xl supports-backdrop-filter:bg-background/60 shadow-sm transition-all duration-200">
+      <div className="mx-auto flex h-16 max-w-7xl items-center justify-between px-4 sm:px-6 lg:px-8">
+        <Link href="/" className="group flex items-center transition-colors">
+          <span className="text-xl font-bold tracking-tight text-foreground/90 transition-colors group-hover:text-primary">
+            Task Management
+          </span>
+        </Link>
 
-        <div className="flex items-center gap-1">
+        <div className="flex items-center gap-4">
           <DropDownMenu
             triggerNode={
-              <Button variant="ghost" size="icon">
+              <Button variant="ghost" size="icon" className="rounded-full text-muted-foreground hover:bg-muted/80 hover:text-foreground transition-colors">
                 <Sun className="size-4 rotate-0 scale-100 transition-transform dark:-rotate-90 dark:scale-0" />
                 <Moon className="absolute size-4 rotate-90 scale-0 transition-transform dark:rotate-0 dark:scale-100" />
                 <span className="sr-only">Toggle theme</span>

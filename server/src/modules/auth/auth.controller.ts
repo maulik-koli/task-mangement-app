@@ -56,6 +56,20 @@ class AuthController {
             message: "Refresh successful"
         });
     }
+
+    public async getProfile(req: Request, res: Response) {
+        const user = req.user!;
+
+        AppResponse(res, 200, {
+            code: "OK",
+            message: "Profile fetched successfully",
+            data: {
+                id: user.id,
+                email: user.email,
+                name: user.name,
+            }
+        });
+    }
 }
 
 export const authController = new AuthController();

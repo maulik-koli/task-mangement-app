@@ -23,6 +23,14 @@ class TaskRepository {
             orderBy: params.orderBy,
             skip: params.skip,
             take: params.take,
+            select: {
+                id: true,
+                title: true,
+                description: true,
+                status: true,
+                priority: true,
+                dueDate: true,
+            }
         });
     }
 

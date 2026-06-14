@@ -1,23 +1,22 @@
 'use client'
 import React from 'react'
 import { useGetTaskList } from '@/api/tasks/hooks'
+import { useTaskFilter } from '@/hooks/use-task-filter'
 
 import TaskSearch from './task-search'
 import TaskFilters from './task-filters'
 import TaskList from './task-list'
 import TaskPagination from './task-pagination'
-import TaskLoading from './task-loading'
 import ErrorBlock from '../common/error-block'
+import { TaskCardSkeleton } from './loading-skeleton'
 
 
 const TaskContent: React.FC = () => {
-    const { data, isLoading, error } = useGetTaskList({ page: 1, limit: 10 });
+    const { filters, applyFilter } = useTaskFilter();
+    const { data, isLoading, error } = useGetTaskList(filters);
 
     const getContent = () => {
-        if (isLoading) {
-            return <TaskLoading count={6} />
-        }
-
+        if (isLoading) return <TaskLoading />
         if (error || !data || !data.data) {
             return (
                 <ErrorBlock 
@@ -27,7 +26,6 @@ const TaskContent: React.FC = () => {
                 />
             )
         }
-
         if (data.data?.tasks.length === 0) {
             return (
                 <ErrorBlock 
@@ -41,18 +39,37 @@ const TaskContent: React.FC = () => {
         return (
             <>
                 <TaskList tasks={data.data.tasks} />
-                <TaskPagination pagination={data.data.pagination} />
+                <TaskPagination 
+                    pagination={data.data.pagination} 
+                    filters={filters} 
+                    applyFilter={applyFilter} 
+                />
             </>
         )
     }
 
     return (
-        <>
-            <TaskSearch />
-            <TaskFilters />
+        <div className="flex flex-col gap-4">
+            <TaskSearch filters={filters} applyFilter={applyFilter} />
+            <TaskFilters filters={filters} applyFilter={applyFilter} />
             {getContent()}
-        </>
+        </div>
     )
 }
 
 export default TaskContent
+
+
+
+interface TaskLoadingProps {
+    count?: number
+}
+const TaskLoading: React.FC<TaskLoadingProps> = function({ count = 6 }) {
+    return (
+        <div className="grid grid-cols-1 gap-3 md:grid-cols-2">
+            {Array.from({ length: count }).map((_, i) => (
+                <TaskCardSkeleton key={i} />
+            ))}
+        </div>
+    )
+}
