@@ -3,8 +3,8 @@ import DashboardHeader from "@/components/tasks/dashboard-header";
 import TaskContent from "@/components/tasks/task-content";
 
 export const metadata: Metadata = {
-  title: "Task Management",
-  description: "Manage and organize your tasks efficiently with task management app. A clean, modern dashboard.",
+  title: "Dashboard",
+  description: "Your personal task management dashboard. View, organize, and track your tasks efficiently.",
 };
 
 

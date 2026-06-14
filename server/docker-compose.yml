@@ -1,0 +1,12 @@
+services:
+  api:
+    build: .
+    container_name: task-api
+
+    ports:
+      - "4000:4000"
+
+    env_file:
+      - .env
+
+    restart: unless-stopped
