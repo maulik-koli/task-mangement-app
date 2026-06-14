@@ -5,8 +5,9 @@
   "main": "index.js",
   "scripts": {
     "dev": "tsx watch --clear-screen=false src/server.ts",
-    "build": "tsc && tsc-alias -p tsconfig.json -f -fe .js",
-    "start": "node dist/src/server.js"
+    "build": "tsc -p tsconfig.build.json && tsc-alias -p tsconfig.build.json -f -fe .js",
+    "start": "node dist/src/server.js",
+    "test": "vitest run"
   },
   "keywords": [],
   "author": "",
@@ -43,6 +44,7 @@
     "tsc-alias": "^1.8.16",
     "tsconfig-paths": "^4.2.0",
     "tsx": "^4.21.0",
-    "typescript": "^5.8.3"
+    "typescript": "^5.8.3",
+    "vitest": "^4.1.8"
   }
 }

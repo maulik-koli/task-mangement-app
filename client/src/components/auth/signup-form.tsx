@@ -103,7 +103,7 @@ const SignupForm: React.FC = () => {
           <Field>
             <Button type="submit">Create Account</Button>
             <FieldDescription className="px-6 text-center">
-              Already have an account? <Link href="/login"> in</Link>
+              Already have an account? <Link href="/login">Log in</Link>
             </FieldDescription>
           </Field>
         </FieldGroup>

@@ -4,13 +4,13 @@ import { cn, formatDate } from "@/lib/utils";
 import { PRIORITY_ACCENT, PRIORITY_CARD, PRIORITY_CONFIG, STATUS_CONFIG } from "@/constants/task-data-config";
 import { convertTaskToForm } from "@/schemas/task-schema";
 
+import { Calendar, Pencil } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
-import { Calendar, Pencil } from "lucide-react";
 import MarkUpdateButton from "./mark-update-btn";
 import DeleteTaskButton from "./delete-task-btn";
-import CustomDialog from "../composites/custom-dialog";
 import UpdateTaskForm from "./update-task-form";
+import CustomDialog from "../composites/custom-dialog";
 
 
 interface TaskCardProps {
