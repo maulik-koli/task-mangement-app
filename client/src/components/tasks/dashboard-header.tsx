@@ -10,6 +10,7 @@ import { Button } from "@/components/ui/button";
 import { Avatar, AvatarFallback } from "@/components/ui/avatar";
 import { Skeleton } from "@/components/ui/skeleton";
 import { useRouter } from "next/navigation";
+import { useToast } from "@/hooks/use-toast";
 
 
 const DashboardHeader: React.FC = () => {
@@ -17,17 +18,22 @@ const DashboardHeader: React.FC = () => {
   const { setTheme, theme } = useTheme();
 
   const { data, error, isLoading } = useGetProfile()
-  const { mutate } = useLogout()
+  const { mutate, isPending } = useLogout()
+  const toast = useToast()
 
   const onLogout = () => {
     console.log('click')
     mutate(undefined, {
       onSuccess: () => {
         router.push('/login')
+        toast.success("Logout successfully")
       }
     })
   }
 
+  toast.isLoading(isPending, "Loading...")
+
+  
   const getContent = () => {
     if (isLoading) {
       return (

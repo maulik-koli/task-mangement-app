@@ -34,7 +34,7 @@ const CreateTaskForm: React.FC<CreateTaskFormProps> = ({ onClose }) => {
       onSuccess: () => {
         toast.success("Task created successfully")
         onClose()
-      }
+      },
     })
   }
 

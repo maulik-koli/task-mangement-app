@@ -1,10 +1,22 @@
-import SignupCard from "@/components/auth/signup-card"
+import SignupForm from '@/components/auth/signup-form'
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
+
 
 export default function Page() {
   return (
     <div className="flex min-h-svh w-full items-center justify-center p-6 md:p-10">
       <div className="w-full max-w-sm">
-        <SignupCard />
+        <Card>
+          <CardHeader>
+            <CardTitle>Create an account</CardTitle>
+            <CardDescription>
+              Enter your information below to create your account
+            </CardDescription>
+          </CardHeader>
+          <CardContent>
+            <SignupForm />
+          </CardContent>
+        </Card>
       </div>
     </div>
   )

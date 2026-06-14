@@ -4,7 +4,6 @@ import { zodResolver } from '@hookform/resolvers/zod'
 import { useUpdateTask } from '@/api/tasks/hooks'
 import { useToast } from '@/hooks/use-toast'
 import { UpdateTaskFormType, updateTaskSchema } from '@/schemas/task-schema'
-import { TaskListItem } from '@/api/tasks/type'
 import { FORM_TASK_PRIORITY_OPTIONS, FORM_TASK_STATUS_OPTIONS } from '@/constants/select-options'
 
 import SelectField from '../composites/select-field'
@@ -34,13 +33,13 @@ const UpdateTaskForm: React.FC<UpdateTaskFormProps> = ({ onClose, taskData, task
     const submit = (data: UpdateTaskFormType) => {
         mutate({ data, taskId }, {
             onSuccess: () => {
-                toast.success("Task created successfully")
+                toast.success("Task update successfully")
                 onClose()
             }
         })
     }
     
-    toast.isLoading(isPending, "Creating task...")
+    toast.isLoading(isPending, "Updating task...")
 
     return (
         <form onSubmit={handleSubmit(submit)} className="space-y-4">
